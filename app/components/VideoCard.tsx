@@ -37,7 +37,7 @@ export function VideoCard({ topics }: VideoCardProps) {
   }
 
   return (
-    <div className="flex justify-center items-center py-8 bg-gray-900 px-4 bg-gray-100 min-h-screen">
+    <div className="flex justify-center items-center py-8 bg-gray-900 px-4 bg-black min-h-screen">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-max w-full">
         {videos.map((video, index) => (
           <div

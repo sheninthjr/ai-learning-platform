@@ -1,7 +1,9 @@
-'use client'
+
+'use client';
 
 import { useState } from "react";
 import { VideoCard } from "./VideoCard";
+import { CiSearch } from "react-icons/ci";
 
 export function Searchbar() {
   const [topics, setTopics] = useState<string>('');
@@ -12,28 +14,35 @@ export function Searchbar() {
       setSearchTerm(topics);
     }
   };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <>
-      <div className="flex flex-col pt-20">
-        <div className="flex justify-center items-center">
+      <div className="flex flex-col">
+        <div className="flex justify-center items-center pb-4">
           <input
             type="text"
-            className="p-2 text-black font-semibold rounded-lg w-96"
-            placeholder="Search based on topics"
+            style={{ background: '#27272A' }}
+            className="p-3 text-white border-none focus:outline-none rounded-lg w-96"
+            placeholder="Search"
             value={topics}
             onChange={(e) => setTopics(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <button
-            className="ml-4 p-2 bg-blue-500 text-white font-semibold rounded-lg"
+            className="ml-2 p-2 bg-slate-900 text-white font-semibold rounded-lg shadow-md hover:bg-slate-800 transition-colors duration-300 flex items-center justify-center"
             onClick={handleSearch}
           >
-            Search
-          </button>
-        </div>
+            <CiSearch size={24} />
+          </button>        </div>
         {searchTerm && <VideoCard key={searchTerm} topics={searchTerm} />}
       </div>
     </>
   );
 }
+
 
