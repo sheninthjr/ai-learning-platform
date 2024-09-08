@@ -19,6 +19,7 @@ export function VideoCard({ topics }: VideoCardProps) {
       setLoading(true);
       try {
         const videoData = await getVideos(topics, 50);
+        alert(videoData)
         setVideos(videoData);
       } catch (error) {
         console.error('Error fetching videos:', error);
