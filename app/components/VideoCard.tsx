@@ -4,12 +4,17 @@
 import { useEffect, useState } from 'react';
 import { getVideos } from '../actions/getVideos';
 
-export function VideoCard({ topics }: any) {
+interface VideoCardProps {
+  topics: string;
+}
+
+export function VideoCard({ topics }: VideoCardProps) {
   const [videos, setVideos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchVideos() {
+      setLoading(true);
       try {
         const videoData = await getVideos(topics, 50);
         setVideos(videoData);
@@ -19,8 +24,13 @@ export function VideoCard({ topics }: any) {
         setLoading(false);
       }
     }
-    fetchVideos();
-  }, []);
+
+    if (topics) {
+      fetchVideos();
+    }
+  }, [topics]);
+
+
 
   if (loading) {
     return <div className="text-center text-xl font-semibold">Loading videos...</div>;

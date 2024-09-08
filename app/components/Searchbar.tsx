@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
 import { useState } from "react";
 import { VideoCard } from "./VideoCard";
 
 export function Searchbar() {
   const [topics, setTopics] = useState<string>('');
-  const [searchTerm, setSearchTerm] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleSearch = () => {
     if (topics.trim()) {
@@ -31,7 +31,7 @@ export function Searchbar() {
             Search
           </button>
         </div>
-        {searchTerm && <VideoCard topics={searchTerm} />}
+        {searchTerm && <VideoCard key={searchTerm} topics={searchTerm} />}
       </div>
     </>
   );
