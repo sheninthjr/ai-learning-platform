@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { getVideos } from '../actions/getVideos';
+import Modal from './Modal';
 
 interface VideoCardProps {
   topics: string;
@@ -11,6 +12,7 @@ interface VideoCardProps {
 export function VideoCard({ topics }: VideoCardProps) {
   const [videos, setVideos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchVideos() {
@@ -30,10 +32,16 @@ export function VideoCard({ topics }: VideoCardProps) {
     }
   }, [topics]);
 
+  const handleVideoClick = (videoId: string) => {
+    setSelectedVideo(videoId);
+  };
 
+  const handleCloseModal = () => {
+    setSelectedVideo(null);
+  };
 
   if (loading) {
-    return <div className="text-center text-xl font-semibold">Loading videos...</div>;
+    return <div className="text-center text-xl text-white font-semibold">Loading videos...</div>;
   }
 
   return (
@@ -42,7 +50,8 @@ export function VideoCard({ topics }: VideoCardProps) {
         {videos.map((video, index) => (
           <div
             key={index}
-            className="max-w-sm bg-slate-950 rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-105"
+            className="max-w-sm bg-slate-950 rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-105 cursor-pointer"
+            onClick={() => handleVideoClick(video.url)}
           >
             <img src={video.thumbnail} alt={video.title} className="w-full h-48 object-cover" />
             <div className="px-6 py-4">
@@ -62,6 +71,9 @@ export function VideoCard({ topics }: VideoCardProps) {
           </div>
         ))}
       </div>
+      {selectedVideo && (
+        <Modal videoUrl={selectedVideo} onClose={handleCloseModal} />
+      )}
     </div>
   );
 }

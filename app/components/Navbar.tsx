@@ -1,15 +1,19 @@
 
+'use client';
+
 import { Searchbar } from "./Searchbar";
 
-export function Navbar() {
+interface NavbarProps {
+  onSearch: (term: string) => void;
+}
+
+export function Navbar({ onSearch }: NavbarProps) {
   return (
-    <div className="flex justify-between items-center bg-black p-3 fixed z-10 w-full">
+    <div className="flex items-center justify-between bg-black p-3 fixed z-10 w-full">
       <div className="font-bold text-3xl text-slate-200 italic">
         Jr LearningHub
       </div>
-      <div className="ml-auto">
-        <Searchbar />
-      </div>
+      <Searchbar onSearch={onSearch} />
     </div>
   );
 }

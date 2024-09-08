@@ -1,10 +1,22 @@
+'use client'
+import { useState } from "react";
 import { Navbar } from "./components/Navbar";
-import { Searchbar } from "./components/Searchbar";
+import { VideoCard } from "./components/VideoCard";
 
 export default function Home() {
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  const handleSearch = (term: string) => {
+    setSearchTerm(term);
+  };
+
   return (
     <div className="bg-black h-screen">
-      <Navbar />
+      <Navbar onSearch={handleSearch} />
+      <div className="pt-16">
+        {searchTerm && <VideoCard topics={searchTerm} />}
+      </div>
     </div>
   );
 }
+
