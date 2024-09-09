@@ -3,22 +3,60 @@
 import { useEffect, useState } from 'react';
 import { getVideos } from '../actions/getVideos';
 import Modal from './Modal';
+import { generateQuestions } from '../hooks/generateQuestions';
 
 interface VideoCardProps {
   topics: string;
 }
 
-export function VideoCard({ topics }: VideoCardProps) {
+export function VideoCard({ topics: initialTopics }: VideoCardProps) {
   const [videos, setVideos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const [topics, setTopics] = useState<string | null>(initialTopics || null);
+
+  const twoDaysInMs = 2 * 24 * 3600 * 1000;
+
+  useEffect(() => {
+    if (!initialTopics) {
+      const storedTopics = localStorage.getItem("topics");
+      if (storedTopics) {
+        setTopics(storedTopics);
+      }
+    } else {
+      localStorage.setItem("topics", initialTopics);
+      setTopics(initialTopics);
+    }
+  }, [initialTopics]);
 
   useEffect(() => {
     async function fetchVideos() {
       setLoading(true);
       try {
-        const videoData = await getVideos(topics, 50);
-        setVideos(videoData);
+        const now = new Date().getTime();
+        const sessionData = sessionStorage.getItem(`videos_${topics}`);
+        const sessionTimestamp = sessionStorage.getItem(`videos_timestamp_${topics}`);
+
+        if (sessionData && sessionTimestamp) {
+          const dataAge = now - parseInt(sessionTimestamp, 10);
+          if (dataAge < twoDaysInMs) {
+            setVideos(JSON.parse(sessionData));
+            setLoading(false);
+            return;
+          }
+        }
+
+        if (topics) {
+          const questions = await generateQuestions(topics);
+          let videoData: any[] = [];
+          for (const question of questions) {
+            const videosForQuestion = await getVideos(topics, question, 3);
+            videoData = [...videoData, ...videosForQuestion];
+          }
+          setVideos(videoData);
+          sessionStorage.setItem(`videos_${topics}`, JSON.stringify(videoData));
+          sessionStorage.setItem(`videos_timestamp_${topics}`, now.toString());
+        }
       } catch (error) {
         console.error('Error fetching videos:', error);
       } finally {
@@ -40,7 +78,7 @@ export function VideoCard({ topics }: VideoCardProps) {
   };
 
   if (loading) {
-    return <div className="text-center text-xl text-white font-semibold">Loading videos...</div>;
+    return <div className="text-center text-xl text-white font-semibold pt-10">Loading videos...</div>;
   }
 
   return (
@@ -76,4 +114,3 @@ export function VideoCard({ topics }: VideoCardProps) {
     </div>
   );
 }
-

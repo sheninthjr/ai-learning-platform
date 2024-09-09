@@ -14,7 +14,7 @@ export default function Home() {
     <div className="bg-black h-screen">
       <Navbar onSearch={handleSearch} />
       <div className="pt-16">
-        {searchTerm && <VideoCard topics={searchTerm} />}
+        <VideoCard topics={searchTerm} />
       </div>
     </div>
   );

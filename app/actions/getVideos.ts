@@ -2,13 +2,13 @@
 import axios from 'axios'
 import { YOUTUBE_API_KEY, YOUTUBE_SEARCH_URL } from '../config';
 
-export async function getVideos(query: string, maxResults: number) {
+export async function getVideos(query: string, method:string, maxResults: number) {
   try {
     const response = await axios.get(YOUTUBE_SEARCH_URL,
       {
         params: {
           part: 'snippet',
-          q: query,
+          q: query + method,
           maxResults: maxResults,
           key: YOUTUBE_API_KEY,
           type: 'video'

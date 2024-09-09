@@ -18,12 +18,12 @@ export function Searchbar({ onSearch }: SearchbarProps) {
       setLoading(true);
       setError(null);
       try {
-        const questions = await generateQuestions("solana");
-        if (questions.length > 0) {
-          alert(questions.join('\n'));
-        } else {
-          alert('No questions generated.');
-        }
+        const questions = await generateQuestions(topics);
+        // if (questions.length > 0) {
+        //   alert(questions.join('\n'));
+        // } else {
+        //   alert('No questions generated.');
+        // }
         onSearch(topics);
       } catch (err) {
         console.error('Error while generating questions:', err);
@@ -46,7 +46,7 @@ export function Searchbar({ onSearch }: SearchbarProps) {
         type="text"
         style={{ background: '#27272A' }}
         className="p-3 text-white font-bold border-none rounded-lg w-96 focus:outline-none"
-        placeholder="Search"
+        placeholder="Search based on topics"
         value={topics}
         onChange={(e) => setTopics(e.target.value)}
         onKeyDown={handleKeyDown}
