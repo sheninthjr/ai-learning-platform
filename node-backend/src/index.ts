@@ -1,9 +1,11 @@
 import express, { Request, Response } from 'express';
+import cors from 'cors';
 import { getSubtitles } from 'youtube-caption-extractor';
 
 const app = express();
 const port = 3001;
 
+app.use(cors())
 app.use(express.json());
 
 interface QueryParams {

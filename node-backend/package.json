@@ -13,7 +13,9 @@
   "dependencies": {
     "@google/generative-ai": "^0.17.1",
     "@types/axios": "^0.14.0",
+    "@types/cors": "^2.8.17",
     "axios": "^1.7.7",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "request": "^2.88.2",
     "youtube-caption-extractor": "^1.4.3"

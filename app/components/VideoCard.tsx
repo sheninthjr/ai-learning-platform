@@ -108,8 +108,8 @@ export function VideoCard({ topics: initialTopics }: VideoCardProps) {
           </div>
         ))}
       </div>
-      {selectedVideo && (
-        <Modal videoUrl={selectedVideo} onClose={handleCloseModal} />
+      {selectedVideo && topics && (
+        <Modal videoUrl={selectedVideo} topics={topics} onClose={handleCloseModal} />
       )}
     </div>
   );
