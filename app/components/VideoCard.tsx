@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -19,7 +18,6 @@ export function VideoCard({ topics }: VideoCardProps) {
       setLoading(true);
       try {
         const videoData = await getVideos(topics, 50);
-        alert(videoData)
         setVideos(videoData);
       } catch (error) {
         console.error('Error fetching videos:', error);
@@ -46,7 +44,7 @@ export function VideoCard({ topics }: VideoCardProps) {
   }
 
   return (
-    <div className="flex justify-center items-center py-8 bg-gray-900 px-4 bg-black min-h-screen">
+    <div className="flex justify-center items-center py-8 px-4 bg-black min-h-screen">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-max w-full">
         {videos.map((video, index) => (
           <div
