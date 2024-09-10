@@ -8,7 +8,7 @@ export async function generateMcqQuestions(query: string) {
         {
           "parts": [
             {
-              "text": `Generate a set of multiple-choice questions with four options and a correct answer based on the following content: "${query}"`
+              "text": `Generate a set of multiple-choice questions nearly 10 with four options and a correct answer based on the following content: "${query}"`
             }
           ]
         }

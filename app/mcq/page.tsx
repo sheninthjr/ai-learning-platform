@@ -48,14 +48,14 @@ export default function Mcq() {
     };
 
     return (
-        <div className="bg-gray-900 min-h-screen text-gray-200 p-8">
-            <h1 className="text-3xl font-bold mb-6">Generated MCQ Questions</h1>
+        <div className="bg-black min-h-screen text-gray-200 p-8">
+            <h1 className="text-3xl font-bold mb-6">Test Your Knowledge</h1>
             {error && <p className="text-red-400 text-lg mb-4">{error}</p>}
             {mcqData.length === 0 && !error && <p className="text-gray-400">Loading...</p>}
             {mcqData.length > 0 && (
                 <div className="space-y-6">
                     {mcqData.map((mcq, index) => (
-                        <div key={index} className="bg-gray-800 p-4 rounded-lg shadow-md">
+                        <div key={index} className="bg-slate-800 p-4 rounded-lg shadow-md">
                             <p className="text-lg font-semibold mb-2">Q{index + 1}. {mcq.question}</p>
                             <ul className="list-disc pl-6 mb-2">
                                 {mcq.options.map((option, i) => (
