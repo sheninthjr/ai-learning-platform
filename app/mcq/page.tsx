@@ -16,7 +16,7 @@ export default function Mcq() {
     const [feedback, setFeedback] = useState<{ [key: number]: string | null }>({});
 
     useEffect(() => {
-        const resKey = `test-data-${"solana"}`;
+        const resKey = `test-data-${localStorage.getItem("topics")}`;
         const storedData = sessionStorage.getItem(resKey);
 
         if (storedData) {

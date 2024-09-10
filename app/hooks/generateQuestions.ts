@@ -26,7 +26,6 @@ export async function generateQuestions(query: string) {
 
     const response = await axios.request(config);
     const candidates = response.data.candidates as { content: { parts: { text: string }[] } }[];
-    
     const contentArray = candidates.map(candidate =>
       candidate.content.parts.map(part => part.text).join(' ')
     );
